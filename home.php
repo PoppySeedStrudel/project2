@@ -21,8 +21,8 @@
 		echo "true";
 	}
 ?>
+<p>
 
-logout:<br></br>
-<form action="bye.php"><input type="submit" value="logout"></form>
+<a href="welcome.php">login/welcome </a><br><a href="bye.php">logout </a><br><a href="register.php">register</a>
   </body>
 </html>

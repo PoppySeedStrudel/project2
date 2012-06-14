@@ -24,17 +24,8 @@
         $pass = mysql_real_escape_string($_POST["pass"]);
         $mail = mysql_real_escape_string($_POST["mail"]);
         
-        $sql = sprintf("INSERT INTO USERS(USER_ID, USERNAME,PASSWORD, EMAIL) VALUES(NULL, '$user', '$pass', '$mail')");
-         
-        //		mysql_real_escape_string($_POST["user"]),
-        	//	mysql_real_escape_string($_POST["pass"]),
-        		// mysql_real_escape_string($_POST["mail"]));
-        
-        // $sql = sprintf("SELECT 1 FROM USERS WHERE USERNAME='%s' AND PASSWORD='%s'",
-           //            mysql_real_escape_string($_POST["user"]),
-             //          mysql_real_escape_string($_POST["pass"]),
-        		//	   mysql_real_escape_string($_POST["mail"]));
-
+        $sql = sprintf("INSERT INTO users(user_id, username,password, email, money) VALUES(NULL, '$user', '$pass', '$mail', 10000)");
+   
         // execute query
         $result = mysql_query($sql);
         if ($result === FALSE)
@@ -75,7 +66,9 @@
         </tr>
       </table>      
     </form>
-   
+    <p>
+<a href="welcome.php">login/welcome </a><br><a href="bye.php">logout </a><br><a href="register.php">register</a>
+    
     
   </body>
 </html>

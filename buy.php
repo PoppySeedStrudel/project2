@@ -1,4 +1,5 @@
 <?php
+ 
 
     // get MySQL login data
     require "common.php";
@@ -10,8 +11,6 @@
     if (isset($_POST["user"]) && isset($_POST["pass"]))
     {
         // connect to database
-        $test = $_POST["user"];
-        echo $test;
         if (($connection = mysql_connect(HOST, USER, PASS)) === FALSE)
             die("Could not connect to database");
     
@@ -20,28 +19,19 @@
             die("Could not select database");
 
         // prepare SQL
-        $sql = sprintf("SELECT 1 FROM users WHERE username='%s' AND password='%s'",
-                       mysql_real_escape_string($_POST["user"]),
-                       mysql_real_escape_string($_POST["pass"]));
-
+        
+        $user = mysql_real_escape_string($_POST["user"]);
+        $pass = mysql_real_escape_string($_POST["pass"]);
+        $mail = mysql_real_escape_string($_POST["mail"]);
+        
+        $sql = sprintf("INSERT INTO users(user_id, username,password, email, money) VALUES(NULL, '$user', '$pass', '$mail', 10000)");
+   
         // execute query
         $result = mysql_query($sql);
         if ($result === FALSE)
             die("Could not query database");
 
-        // check whether we found a row
-        if (mysql_num_rows($result) == 1)
-        {
-            // remember that user's logged in
-            $_SESSION["authenticated"] = TRUE;
-
-            // redirect user to home page, using absolute path, per
-            // http://us2.php.net/manual/en/function.header.php
-            $host = $_SERVER["HTTP_HOST"];
-            $path = rtrim(dirname($_SERVER["PHP_SELF"]), "/\\");
-            header("Location: http://$host$path/home.php?" . $test);
-            exit;
-        }
+ 
     }
 ?>
 
@@ -49,9 +39,24 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Log In</title>
+    <title>Buy</title>
   </head>
   <body>
+  
+  <?php 
+  
+  if ($_SESSION["authenticated"] == FALSE){
+  	echo "Please <a href=\"register.php\">register</a> or <a href=\"welcome.php\">login</a>";
+  	exit;
+  }
+  else {
+  	echo "eingeloggt";
+  }
+  
+  ?>
+  Please enter your data:
+ <br>
+ 
     <form action="<? echo $_SERVER["PHP_SELF"]; ?>" method="post">
       <table>
         <tr>
@@ -64,14 +69,17 @@
           <td><input name="pass" type="password" /></td>
         </tr>
         <tr>
+          <td>E-Mail:</td>
+          <td><input name="mail" type="mail" /></td>
+        </tr>
+        <tr>
           <td></td>
           <td><input type="submit" value="Log In" /></td>
         </tr>
       </table>      
     </form>
-    <br>If you don't have a login, please <a href="register.php">register</a>!
-     <p>
-<a href="welcome.php">login/welcome </a><br><a href="bye.php">logout </a><br><a href="register.php">register</a>
+   <p>
+  <a href="welcome.php">login/welcome </a><br><a href="bye.php">logout </a><br><a href="register.php">register</a>
     
   </body>
 </html>

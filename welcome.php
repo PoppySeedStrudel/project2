@@ -10,8 +10,7 @@
     if (isset($_POST["user"]) && isset($_POST["pass"]))
     {
         // connect to database
-        $test = $_POST["user"];
-        echo $test;
+ 		$user = $_POST["user"];
         if (($connection = mysql_connect(HOST, USER, PASS)) === FALSE)
             die("Could not connect to database");
     
@@ -34,6 +33,7 @@
         {
             // remember that user's logged in
             $_SESSION["authenticated"] = TRUE;
+            $_SESSION["user"] = $user;
 
             // redirect user to home page, using absolute path, per
             // http://us2.php.net/manual/en/function.header.php

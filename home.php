@@ -1,8 +1,8 @@
 <?php
   
-	function logout() {
-		echo "logout";
-	}
+// enable sessions
+session_start();
+
 ?>
 
 
@@ -17,8 +17,10 @@
 	welcome! </ br>
 	
 <?php 
-	if ($_SESSION["authenticated"] = TRUE){
-		echo "true";
+	if ($_SESSION["authenticated"] === TRUE){
+		echo "true<br>";
+		$user = $_SESSION["user"];
+		echo $user;
 	}
 ?>
 <p>

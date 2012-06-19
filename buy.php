@@ -1,5 +1,4 @@
 <?php
- 
 
     // get MySQL login data
     require "common.php";
@@ -7,34 +6,9 @@
     // enable sessions
     session_start();
 
-    // if username and password were submitted, check them
-    if (isset($_POST["user"]) && isset($_POST["pass"]))
-    {
-        // connect to database
-        if (($connection = mysql_connect(HOST, USER, PASS)) === FALSE)
-            die("Could not connect to database");
-    
-        // select database
-        if (mysql_select_db(DB, $connection) === FALSE)
-            die("Could not select database");
 
-        // prepare SQL
-        
-        $user = mysql_real_escape_string($_POST["user"]);
-        $pass = mysql_real_escape_string($_POST["pass"]);
-        $mail = mysql_real_escape_string($_POST["mail"]);
-        
-        $sql = sprintf("INSERT INTO users(user_id, username,password, email, money) VALUES(NULL, '$user', '$pass', '$mail', 10000)");
-   
-        // execute query
-        $result = mysql_query($sql);
-        if ($result === FALSE)
-            die("Could not query database");
-
- 
-    }
 ?>
-
+        
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -44,40 +18,41 @@
   <body>
   
   <?php 
+
   
-  if ($_SESSION["authenticated"] == FALSE){
-  	echo "Please <a href=\"register.php\">register</a> or <a href=\"welcome.php\">login</a>";
-  	exit;
+  // connect to database
+  if (($connection = mysql_connect(HOST, USER, PASS)) === FALSE)
+  	die("Could not connect to database");
+  
+  // select database
+  if (mysql_select_db(DB, $connection) === FALSE)
+  	die("Could not select database");
+  
+  // prepare SQL
+  $sql = sprintf("SELECT * FROM stocks");
+  
+  // execute query
+  $result = mysql_query($sql);
+  if ($result === FALSE)
+  	die("Could not query database");
+  
+  echo "<form action=\"confirm.php\" method=\"get\"><table border=\"1\">";
+  while ( $row = mysql_fetch_array ( $result ) )
+  {
+  	echo "<tr><td>";
+  	echo "<input type=\"text\" size=\"2\" name=\"" . $row[1] . "\"></td><td>";
+  	echo $row[0] . ' </td><td>';
+  	echo $row[1] . ' </td><td>';
+  	echo $row[2] . ' </td><td>';
+  	echo $row[3] . '</td>';
+  	echo "</tr>";
   }
-  else {
-  	echo "eingeloggt";
-  }
+  echo "</table><p><input type=\"submit\" value=\"Buy!\"></form><p>";
+  
+
   
   ?>
-  Please enter your data:
- <br>
- 
-    <form action="<? echo $_SERVER["PHP_SELF"]; ?>" method="post">
-      <table>
-        <tr>
-          <td>Username:</td>
-          <td>
-            <input name="user" type="text" /></td>
-        </tr>
-        <tr>
-          <td>Password:</td>
-          <td><input name="pass" type="password" /></td>
-        </tr>
-        <tr>
-          <td>E-Mail:</td>
-          <td><input name="mail" type="mail" /></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td><input type="submit" value="Log In" /></td>
-        </tr>
-      </table>      
-    </form>
+
    <p>
   <a href="welcome.php">login/welcome </a><br><a href="bye.php">logout </a><br><a href="register.php">register</a>
     

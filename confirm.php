@@ -21,6 +21,20 @@
   		$result2 = mysql_query($sql3);
   		echo "<br>" .  $user . " new money is " . $account_money . "$.<br>";
   	}
+  	
+  	function insert_transaction($s, $m, $b, $price) {
+  		
+  		
+  		global $user;
+  		//find out user_id
+  		$sql3 = "SELECT `user_id` FROM `users` WHERE `username` = \"" . $user . "\"";
+  		$result = mysql_query($sql3);
+  		$user_id = mysql_fetch_array($result);
+  		
+  		
+  		$insert_sql = "INSERT INTO `transactions` (`transaction_id` ,`user_id` ,`date` ,`stock` ,`price` ,`amount` ,`sellorbuy` ,`bill`) VALUES (NULL , '$user_id[0]', CURDATE() , '$s', '$price', '$m', 'buy', '$b')";
+  		$result = mysql_query($insert_sql);
+  	}
 
 ?>
 
@@ -59,7 +73,7 @@ for ($i = 0; $i < sizeof($_GET); ++$i) {
 		$bill = $menge * $ergebnis[0];
 		
 		echo $user . " ordered " . $menge . " of product id " . $stock . " for ". $bill . "$.<br>";
-		
+		insert_transaction($stock, $menge, $bill, $ergebnis[0]);
 	
 	}
 	next($_GET);
@@ -67,9 +81,11 @@ for ($i = 0; $i < sizeof($_GET); ++$i) {
 
 update_money ($bill);
 
+
+
 ?>
 
 <p>
-<a href="welcome.php">login/welcome </a><br><a href="bye.php">logout </a><br><a href="register.php">register</a><br><a href="buy.php">buy</a>
+<a href="welcome.php">login/welcome </a><br><a href="bye.php">logout </a><br><a href="register.php">register</a><br><a href="buy.php">buy</a><br><a href="account.php">account</a>
   </body>
 </html>

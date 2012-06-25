@@ -2,6 +2,8 @@
 
     // get MySQL login data
     require "common.php";
+    
+    require "balance.php";
 
     // enable sessions
     session_start();
@@ -15,10 +17,16 @@
   		$sql2 = "SELECT `money` FROM `users`WHERE `username` = \"" . $user . "\"";
   		$result = mysql_query($sql2);
   		$account_money_array = mysql_fetch_array($result);
-  		echo $account_money_array[0] . " " .  $bill;
-  		$account_money = $account_money_array[0] - $bill;
-  		$sql3 = "UPDATE `users` SET `money`=" . $account_money . " WHERE `username` = \"". $user . "\"";
-  		$result2 = mysql_query($sql3);
+  		// echo $account_money_array[0] . " " .  $bill;
+  		
+  		// $account_money = $account_money_array[0] - $bill;
+  		// $sql3 = "UPDATE `users` SET `money`=" . $account_money . " WHERE `username` = \"". $user . "\"";
+  		// $result2 = mysql_query($sql3);
+  		
+  		// put new budget into money field of users-table as new balance
+  		$art = "buy";
+  		$account_money = balance($bill, $user, $art);
+  		
   		echo "<br>" .  $user . " new money is " . $account_money . "$.<br>";
   	}
   	

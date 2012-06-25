@@ -24,7 +24,6 @@ session_start();
 	}
 ?>
 <p>
-
-<a href="welcome.php">login/welcome </a><br><a href="bye.php">logout </a><br><a href="register.php">register</a>
+<a href="welcome.php">login/welcome </a><br><a href="bye.php">logout </a><br><a href="register.php">register</a><br><a href="buy.php">buy</a><br><a href="account.php">account</a>
   </body>
 </html>

@@ -2,8 +2,13 @@
  
 
     // get MySQL login data
-    require "common.php";
-
+    require "scripts/common.php";
+    // php for right column
+    require "scripts/right_column.php";
+    //check login
+    require "scripts/check_login.php";
+    check_login();
+    
     // enable sessions
     session_start();
 
@@ -57,6 +62,7 @@
 			<li><a href="buy.php">Buy</a></li>
 			<li><a href="sell.php">Sell</a></li>
 			<li><a href="account.php">Account</a></li>
+			<li><a href="bye.php">Logout</a></li>
 		</ul>
 	</div>
 	<div id="content-container">
@@ -88,12 +94,7 @@
 		    </form>
 		</div>
 		<div id="aside">
-			<h3>
-				Aside heading
-			</h3>
-			<p>
-				Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan.
-			</p>
+			<?php fill_right_column(); ?>
 		</div>
 		<div id="footer">
 			Copyright © Cornelius Baier, Online Stock-Market, 2012

@@ -1,2 +1,2 @@
 cd /home/baier/html/workspace/project2
-php fill_database.php
+php scripts/fill_database.php

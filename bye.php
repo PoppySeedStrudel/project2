@@ -1,7 +1,12 @@
 <?php
-
+	// php for right column
+	require "scripts/right_column.php";
 	 $_SESSION["authenticated"] = FALSE;
 	 session_destroy(); 
+	 //check login
+	 require "scripts/check_login.php";
+	 check_login();
+	 
 	 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -26,6 +31,7 @@
 			<li><a href="buy.php">Buy</a></li>
 			<li><a href="sell.php">Sell</a></li>
 			<li><a href="account.php">Account</a></li>
+			<li><a href="bye.php">Logout</a></li>
 		</ul>
 	</div>
 	<div id="content-container">
@@ -41,12 +47,7 @@
 				?>
 		</div>
 		<div id="aside">
-			<h3>
-				Aside heading
-			</h3>
-			<p>
-				Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan.
-			</p>
+			<?php fill_right_column(); ?>
 		</div>
 		<div id="footer">
 			Copyright © Cornelius Baier, Online Stock-Market, 2012

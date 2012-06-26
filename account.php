@@ -1,5 +1,7 @@
 <?php
- 
+
+	// enable sessions
+	session_start();
 
     // get MySQL login data
     require "scripts/common.php";
@@ -11,8 +13,7 @@
     require "scripts/check_login.php";
     check_login();
     
-    // enable sessions
-    session_start();
+
     
     $gesamt = 0;
 

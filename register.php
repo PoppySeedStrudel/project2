@@ -1,7 +1,8 @@
 <?php
  
-
-    // get MySQL login data
+	// enable sessions
+	session_start();
+	// get MySQL login data
     require "scripts/common.php";
     // php for right column
     require "scripts/right_column.php";
@@ -9,8 +10,7 @@
     require "scripts/check_login.php";
     check_login();
     
-    // enable sessions
-    session_start();
+  
 
     // if username and password were submitted, check them
     if (isset($_POST["user"]) && isset($_POST["pass"]))

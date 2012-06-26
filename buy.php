@@ -1,4 +1,6 @@
 <?php
+	// enable sessions
+	session_start();
 
     // get MySQL login data
     require "scripts/common.php";
@@ -8,10 +10,6 @@
     require "scripts/check_login.php";
     check_login();
     
-    // enable sessions
-    session_start();
-
-
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

@@ -1,17 +1,17 @@
 <?php
 
+	// enable sessions
+	session_start();
     // get MySQL login data
     require "scripts/common.php";
-
-    // php for right column
-    require "scripts/right_column.php";
     
     //check login
     require "scripts/check_login.php";
     check_login();
+    // php for right column
+    require "scripts/right_column.php";
     
-    // enable sessions
-    session_start();
+ 
 
 
 ?>

@@ -1,5 +1,7 @@
 <?php
 
+	// enable sessions
+	session_start();
     // get MySQL login data
     require "scripts/common.php";
     
@@ -11,8 +13,6 @@
     check_login();
     
 
-    // enable sessions
-    session_start();
 //   
 
   	function update_money ($payed_money) {

@@ -1,11 +1,21 @@
-<?php
 
-	session_start();
+
+<?php
+/**
+ * Script to fill the right column of the Online Stock Market.
+ * The script checks if you are logged in or not and display either login/pw-fields or welcomes the username
+ * 
+ * Author: Cornelius Baier
+ * Date: 26.06.2012
+ * Version: 0.9
+ * 
+ * 
+ */
+
 
 	function fill_right_column() {
 		if ($_SESSION["authenticated"] != TRUE){
 		
-			echo $_SERVER["PHP_SELF"];
 			echo "Please Log in here or <a href=\"register.php\">register!</a><br>";
 			echo "<p><form action=\"";
 			echo $_SERVER["PHP_SELF"];

@@ -19,7 +19,7 @@
 
     //extract the data for the user who is logged in from the transactions-table
     
-	function getdata() {
+function getdata() {
 
 		global $gesamt;
 		
@@ -44,7 +44,7 @@
 			
 		$stockname = "";
 		
-		echo $user . " has the following stocks in his portfolio: <br><table border=1>";
+		echo $user . " has the following stocks in his portfolio: <br><form action=<table border=1>";
 		// go thru the data of the user
 		while ($row = mysql_fetch_assoc($result)) {
 			
@@ -137,7 +137,7 @@
 	<div id="content-container">
 		<div id="content">
 			<h2>
-				Account Info
+				Sell Stocks
 			</h2>
 			<?php 
 				getdata();

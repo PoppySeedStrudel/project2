@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * script to check and update the balance of the user.
+ * the function balance() queries the balance from the user-table and either adds or subtracts money and transfers the new balance to the user-table.
+ * 
+ * author: cornelius baier
+ * date: 03.07.2012
+ * version: 0.9
+ * 
+ */
+
 	require "common.php";
 	
 	function balance($b, $u, $art){

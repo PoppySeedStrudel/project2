@@ -1,13 +1,14 @@
 <?php
 	// php for right column
 	require "scripts/right_column.php";
-	 $_SESSION["authenticated"] = FALSE;
-	 session_destroy(); 
-	 //check login
-	 require "scripts/check_login.php";
-	 check_login();
-	 
-	 
+
+	session_start();
+	$_SESSION = array();
+	session_unset();
+	session_destroy();
+	
+	header("Location:welcome.php");
+	
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -38,13 +39,9 @@
 		<div id="content">
 			<h2>
 				You are logged out. 
+
 			</h2>
-			<?php 
-				if ($_SESSION["authenticated"] == FALSE){
-					echo "false"; 
-				}
-				else {echo "true";}
-				?>
+		
 		</div>
 		<div id="aside">
 			<?php fill_right_column(); ?>

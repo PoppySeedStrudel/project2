@@ -10,32 +10,14 @@
     require "scripts/check_login.php";
     check_login();
     
+    require "scripts/register_new_user.php";
   
 
     // if username and password were submitted, check them
-    if (isset($_POST["user"]) && isset($_POST["pass"]))
+   if (isset($_POST["user"]) && isset($_POST["pass"]))
     {
-        // connect to database
-        if (($connection = mysql_connect(HOST, USER, PASS)) === FALSE)
-            die("Could not connect to database");
-    
-        // select database
-        if (mysql_select_db(DB, $connection) === FALSE)
-            die("Could not select database");
 
-        // prepare SQL
-        
-        $user = mysql_real_escape_string($_POST["user"]);
-        $pass = mysql_real_escape_string($_POST["pass"]);
-        $mail = mysql_real_escape_string($_POST["mail"]);
-        
-        $sql = sprintf("INSERT INTO users(user_id, username,password, email, money) VALUES(NULL, '$user', '$pass', '$mail', 10000)");
-   
-        // execute query
-        $result = mysql_query($sql);
-        if ($result === FALSE)
-            die("Could not query database");
-
+    	register_new_user($_POST["user"], $_POST["pass"], $_POST["mail"]);
  
     }
 ?>
@@ -45,7 +27,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="mystyle.css" />
-<title>Please register</title>
+<title>Insert title here</title>
 </head>
 <body>
 
@@ -67,34 +49,32 @@
 	</div>
 	<div id="content-container">
 		<div id="content">
-			<h2>
-				 Please enter your data:
-			</h2>
-	 
-		    <form action="<? echo $_SERVER["PHP_SELF"]; ?>" method="post">
-		      <table>
-		        <tr>
-		          <td>Username:</td>
-		          <td>
-		            <input name="user" type="text" /></td>
-		        </tr>
-		        <tr>
-		          <td>Password:</td>
-		          <td><input name="pass" type="password" /></td>
-		        </tr>
-		        <tr>
-		          <td>E-Mail:</td>
-		          <td><input name="mail" type="mail" /></td>
-		        </tr>
-		        <tr>
-		          <td></td>
-		          <td><input type="submit" value="Log In" /></td>
-		        </tr>
-		      </table>      
-		    </form>
+		<?php 
+		  if ($_SESSION["authenticated"] != TRUE){
+		  	
+		  	echo "<h2> Please enter your data:</h2>";
+		  	echo "<form action=\"";
+		  	echo $_SERVER["PHP_SELF"];
+		  	echo " method=\"post\">";
+		  	echo "<table><tr><td>Username:</td> <td><input name=\"user\" type=\"text\" /></td>";
+		  	echo "</tr><tr><td>Password:</td><td><input name=\"pass\" type=\"password\" /></td>";
+		  	echo "</tr><tr><td>E-Mail:</td><td><input name=\"mail\" type=\"mail\" /></td>";
+		  	echo "</tr><tr><td></td><td><input type=\"submit\" value=\"Log In\" /></td>";
+		  	echo "</tr></table></form></div>";
+		  	
+		  }
+		  else {
+
+		  	echo "<h2>Buy your favorite stocks:	</h2>";	
+			  
+			 echo "Hi there!";
+		  }
+	
+?>
+
 		</div>
 		<div id="aside">
-			<?php fill_right_column(); ?>
+		<?php fill_right_column(); ?>
 		</div>
 		<div id="footer">
 			Copyright © Cornelius Baier, Online Stock-Market, 2012

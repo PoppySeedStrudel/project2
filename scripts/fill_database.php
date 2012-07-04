@@ -1,4 +1,11 @@
 <?php
+/**
+ * script to download some stock data from yahoo finance and store the data in the mysql-database.
+ * author: cornelius baier
+ * date: 03.07.2012
+ * version: 1.0
+ * 
+ */
 
 // get MySQL login data
 require "common.php";

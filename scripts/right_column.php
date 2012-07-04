@@ -29,7 +29,7 @@
 		else {
 			echo "You are logged in, <br>";
 			$user = $_SESSION["user"];
-			echo $user;
+			echo $user .".";
 		}
 	}
 ?>

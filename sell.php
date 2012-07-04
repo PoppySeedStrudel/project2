@@ -11,7 +11,10 @@
     require "scripts/right_column.php";
     //check login
     require "scripts/check_login.php";
-    check_login();
+  	if (isset($_POST["user"]) && isset($_POST["pass"]))
+    {
+    	check_login();
+    }
     
 
     
@@ -44,7 +47,7 @@ function getdata() {
 			
 		$stockname = "";
 		
-		echo $user . " has the following stocks in his portfolio: <br><form action=<table border=1>";
+		echo $user . " has the following stocks in his portfolio: <br><form action=\"confirm.php\" method=\"get\"><table border=\"1\">";
 		// go thru the data of the user
 		while ($row = mysql_fetch_assoc($result)) {
 			
@@ -139,8 +142,15 @@ function getdata() {
 			<h2>
 				Sell Stocks
 			</h2>
-			<?php 
+			 <?php 
+		  if ($_SESSION["authenticated"] != TRUE){
+		  	
+		  	echo "Please log in to use this service!";
+		  	
+		  }
+		  else {
 				getdata();
+		  }
 			?>
 		</div>
 		<div id="aside">

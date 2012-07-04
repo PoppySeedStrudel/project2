@@ -1,14 +1,22 @@
 <?php
+/**
+ * script to check if the user has send login data to the page calling this function.
+ * the function check_login() logs into the database and checks wether there the user which was submitted exists and if the password is right.
+ * 
+ * author: cornelius baier
+ * date: 03.07.2012
+ * version: 0.9
+ * 
+ */
 
 function check_login() {
-	// if username and password were submitted, check them
-	if (isset($_POST["user"]) && isset($_POST["pass"]))
-	{
+	
+	
 		// connect to database
 		$user = $_POST["user"];
 		if (($connection = mysql_connect(HOST, USER, PASS)) === FALSE)
 			die("Could not connect to database");
-	
+					
 		// select database
 		if (mysql_select_db(DB, $connection) === FALSE)
 			die("Could not select database");
@@ -17,7 +25,7 @@ function check_login() {
 		$sql = sprintf("SELECT 1 FROM users WHERE username='%s' AND password='%s'",
 				mysql_real_escape_string($_POST["user"]),
 				mysql_real_escape_string($_POST["pass"]));
-	
+		// echo $sql;
 		// execute query
 		$result = mysql_query($sql);
 		if ($result === FALSE)
@@ -38,5 +46,5 @@ function check_login() {
 			exit;
 		}
 	}
-}
+
 ?>

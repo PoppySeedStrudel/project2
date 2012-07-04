@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * function to connect to the mysql-database
+ * 
+ */
     
     // display errors
     ini_set("display_errors", true);

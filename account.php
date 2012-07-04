@@ -11,7 +11,10 @@
     require "scripts/right_column.php";
     //check login
     require "scripts/check_login.php";
-    check_login();
+  	if (isset($_POST["user"]) && isset($_POST["pass"]))
+    {
+    	check_login();
+    }
     
 
     
@@ -20,7 +23,7 @@
     //extract the data for the user who is logged in from the transactions-table
     
 	function getdata() {
-
+		
 		global $gesamt;
 		
 		// find out user_id for the use in sql against transaction-table
@@ -139,8 +142,15 @@
 			<h2>
 				Account Info
 			</h2>
-			<?php 
-				getdata();
+			 <?php 
+		  if ($_SESSION["authenticated"] != TRUE){
+		  	
+		  	echo "Please log in to use this service!";
+		  	
+		  }
+		  else {
+			getdata();
+		  }
 			?>
 		</div>
 		<div id="aside">

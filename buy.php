@@ -8,8 +8,12 @@
     require "scripts/right_column.php";
     //check login
     require "scripts/check_login.php";
-    check_login();
     
+    // if username and password were submitted, check them
+    if (isset($_POST["user"]) && isset($_POST["pass"]))
+    {
+    	check_login();
+    }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -38,11 +42,15 @@
 	</div>
 	<div id="content-container">
 		<div id="content">
-			<h2>
-				Buy your favorite stocks:
-			</h2>
-			  <?php 
-			
+		  <?php 
+		  if ($_SESSION["authenticated"] != TRUE){
+		  	
+		  	echo "Please log in to use this service!";
+		  	
+		  }
+		  else {
+
+		  	echo "<h2>Buy your favorite stocks:	</h2>";	
 			  
 			  // connect to database
 			  if (($connection = mysql_connect(HOST, USER, PASS)) === FALSE)
@@ -72,10 +80,12 @@
 			  	echo "</tr>";
 			  }
 			  echo "</table><p><input type=\"submit\" value=\"Buy!\"></form><p>";
-			  
+		  }
 			
 			  
-			  ?>
+			 
+		
+?>
 			
 		</div>
 		<div id="aside">

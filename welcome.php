@@ -11,7 +11,10 @@
     // php for right column
     require "scripts/right_column.php";
     
- 
+    if (isset($_POST["user"]) && isset($_POST["pass"]))
+    {
+    	check_login();
+    }
 
 
 ?>

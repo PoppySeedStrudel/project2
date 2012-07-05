@@ -41,8 +41,9 @@ function check_login() {
 			// redirect user to home page, using absolute path, per
 			// http://us2.php.net/manual/en/function.header.php
 			$host = $_SERVER["HTTP_HOST"];
-			$path = rtrim(dirname($_SERVER["PHP_SELF"]), "/\\");
-			// header("Location: http://$host$path/welcome.php?" . $test);
+			// $path = rtrim(dirname($_SERVER["PHP_SELF"]), "/\\");
+			$path = $_SERVER["PHP_SELF"];
+			header("Location: http://$host$path");
 			exit;
 		}
 	}

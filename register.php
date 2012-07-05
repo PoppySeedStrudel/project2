@@ -4,22 +4,29 @@
 	session_start();
 	// get MySQL login data
     require "scripts/common.php";
-    // php for right column
-    require "scripts/right_column.php";
+   
     //check login
     require "scripts/check_login.php";
     check_login();
     
     require "scripts/register_new_user.php";
-  
+    $a = 1;
 
     // if username and password were submitted, check them
    if (isset($_POST["user"]) && isset($_POST["pass"]))
     {
-
+		
+    	$user = $_POST["user"];
     	register_new_user($_POST["user"], $_POST["pass"], $_POST["mail"]);
- 
+ 			
+    	$_SESSION["authenticated"] = TRUE;
+		$_SESSION["user"] = $user;
+	
+		
     }
+    // php for right column
+    require "scripts/right_column.php";
+    
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -50,31 +57,37 @@
 	<div id="content-container">
 		<div id="content">
 		<?php 
-		  if ($_SESSION["authenticated"] != TRUE){
+			global $a;
+		
+		  if ($_SESSION["authenticated"] != TRUE && $a != 0){
 		  	
 		  	echo "<h2> Please enter your data:</h2>";
 		  	echo "<form action=\"";
 		  	echo $_SERVER["PHP_SELF"];
-		  	echo " method=\"post\">";
+		  	echo "\" method=\"post\">";
 		  	echo "<table><tr><td>Username:</td> <td><input name=\"user\" type=\"text\" /></td>";
 		  	echo "</tr><tr><td>Password:</td><td><input name=\"pass\" type=\"password\" /></td>";
 		  	echo "</tr><tr><td>E-Mail:</td><td><input name=\"mail\" type=\"mail\" /></td>";
 		  	echo "</tr><tr><td></td><td><input type=\"submit\" value=\"Log In\" /></td>";
-		  	echo "</tr></table></form></div>";
+		  	echo "</tr></table></form>";
 		  	
 		  }
 		  else {
-
-		  	echo "<h2>Buy your favorite stocks:	</h2>";	
-			  
-			 echo "Hi there!";
+		  	echo "klappt";
 		  }
 	
 ?>
 
 		</div>
 		<div id="aside">
-		<?php fill_right_column(); ?>
+		<?php 
+		if ($_SESSION["authenticated"] != TRUE){
+			echo "Please register on the right side!";
+		}
+		else {
+			fill_right_column();
+		}
+		 ?>
 		</div>
 		<div id="footer">
 			Copyright © Cornelius Baier, Online Stock-Market, 2012

@@ -4,10 +4,11 @@
 
     // get MySQL login data
     require "scripts/common.php";
-    // php for right column
-    require "scripts/right_column.php";
     //check login
     require "scripts/check_login.php";
+    // php for right column
+    require "scripts/right_column.php";
+    
     
     // if username and password were submitted, check them
     if (isset($_POST["user"]) && isset($_POST["pass"]))
@@ -42,6 +43,10 @@
 	</div>
 	<div id="content-container">
 		<div id="content">
+			<h2>
+				Buy stocks!
+			</h2>
+			<p>
 		  <?php 
 		  if ($_SESSION["authenticated"] != TRUE){
 		  	

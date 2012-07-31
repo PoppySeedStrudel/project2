@@ -11,21 +11,28 @@
     
     require "scripts/register_new_user.php";
     $a = 1;
-
+	$b = 1;
     // if username and password were submitted, check them
    if (isset($_POST["user"]) && isset($_POST["pass"]))
     {
 		
     	$user = $_POST["user"];
-    	register_new_user($_POST["user"], $_POST["pass"], $_POST["mail"]);
- 			
-    	$_SESSION["authenticated"] = TRUE;
-		$_SESSION["user"] = $user;
-	
+    	if (register_new_user($_POST["user"], $_POST["pass"], $_POST["mail"]) != TRUE){
+			
+    		$b = 0;
+    		
+    	}
+ 		else {
+	    	$_SESSION["authenticated"] = TRUE;
+			$_SESSION["user"] = $user;
+ 		}
 		
     }
     // php for right column
     require "scripts/right_column.php";
+    
+    //check user who is registering for possible usernames
+    require 'scripts/validate_user_data.php';
     
 ?>
 
@@ -34,7 +41,30 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="mystyle.css" />
-<title>Insert title here</title>
+<title>Register here</title>
+  <script type="text/javascript">
+    // <![CDATA[
+
+        function validate()
+        {
+            with (document.forms.registration)
+            {
+                if (user.value == "")
+                {
+                    alert("You must provide username.");
+                    return false;
+                }
+                else if (pass.value == "")
+                {
+                    alert("You must provide a password.");
+                    return false;
+                }
+                return true;
+            }
+        }
+
+    // ]]>
+    </script>
 </head>
 <body>
 
@@ -61,10 +91,14 @@
 		
 		  if ($_SESSION["authenticated"] != TRUE && $a != 0){
 		  	
-		  	echo "<h2> Please enter your data:</h2>";
+		  	if ($b != 1){
+		  		echo "<h2>Username already has been taken!</h2><br>Please chose a different username...";
+		  	}
+		  	
+		   	echo "<h2> Please enter your data:</h2>";
 		  	echo "<form action=\"";
 		  	echo $_SERVER["PHP_SELF"];
-		  	echo "\" method=\"post\">";
+		  	echo "\" method=\"post\" name=\"registration\" onsubmit=\"return validate();\">";
 		  	echo "<table><tr><td>Username:</td> <td><input name=\"user\" type=\"text\" /></td>";
 		  	echo "</tr><tr><td>Password:</td><td><input name=\"pass\" type=\"password\" /></td>";
 		  	echo "</tr><tr><td>E-Mail:</td><td><input name=\"mail\" type=\"mail\" /></td>";
@@ -73,7 +107,7 @@
 		  	
 		  }
 		  else {
-		  	echo "klappt";
+		  	echo "You are now registered and logged in.";
 		  }
 	
 ?>
@@ -82,7 +116,7 @@
 		<div id="aside">
 		<?php 
 		if ($_SESSION["authenticated"] != TRUE){
-			echo "Please register on the right side!";
+			echo "Please register on the left side!";
 		}
 		else {
 			fill_right_column();
